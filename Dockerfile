@@ -1,7 +1,7 @@
 FROM centos:centos7
 LABEL name="BDDStack" \ 
     maintainer="Roland Stens <rstens@stens.ca>" \
-    version="0.2" \
+    version="0.3" \
     description="Google Chrome Headless in a container"
 
 RUN yum -y update; yum clean all
@@ -15,12 +15,12 @@ RUN rm google-chrome-stable_current_x86_64.rpm
 RUN wget https://services.gradle.org/distributions/gradle-4.2-bin.zip -P /opt
 RUN unzip -d /opt/gradle /opt/gradle-*.zip
 
-ENV GRADLE_HOME=/opt/gradle/gradle-4.2 \
-    PATH=${GRADLE_HOME}/bin:${PATH}
+ENV GRADLE_HOME=/opt/gradle/gradle-4.2
+ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 # Add Chrome as a user
-RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
-    && mkdir -p /home/chrome && chown -R chrome:chrome /home/chrome && \
+RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome && \
+    mkdir -p /home/chrome && chown -R chrome:chrome /home/chrome && \
     google-chrome --version | grep -o -m 1 -E "[0-9]{2,3}[^ ^a-z^A-Z^0-9^\.]*" | sed -n 1p >  /home/chrome/chromeversion && \
     wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE_`cat /home/chrome/chromeversion` -O  /home/chrome/chromedriver 
 

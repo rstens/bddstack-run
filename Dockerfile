@@ -18,8 +18,6 @@ RUN unzip -d /opt/gradle /opt/gradle-*.zip
 ENV GRADLE_HOME=/opt/gradle/gradle-4.2 \
     PATH=${GRADLE_HOME}/bin:${PATH}
 
-RUN gradle -v
-
 # Add Chrome as a user
 RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
     && mkdir -p /home/chrome && chown -R chrome:chrome /home/chrome && \

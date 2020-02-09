@@ -12,12 +12,6 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.
 RUN yum -y localinstall google-chrome-stable_current_x86_64.rpm; yum clean all
 RUN rm google-chrome-stable_current_x86_64.rpm
 
-RUN wget https://services.gradle.org/distributions/gradle-4.2-bin.zip -P /opt
-RUN unzip -d /opt/gradle /opt/gradle-*.zip
-
-ENV GRADLE_HOME=/opt/gradle/gradle-4.2
-ENV PATH=${GRADLE_HOME}/bin:${PATH}
-
 # Add Chrome as a user
 RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome && \
     mkdir -p /home/chrome && chown -R chrome:chrome /home/chrome && \

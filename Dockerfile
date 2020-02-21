@@ -20,5 +20,3 @@ RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome && \
 
 # Run Chrome non-privileged
 USER chrome
-
-CMD [ "/bin/bash" ]
